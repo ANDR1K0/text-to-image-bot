@@ -4,7 +4,7 @@ from pytesseract import image_to_string, pytesseract
 
 pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
 
-bot_token = '855417336:AAFcgumGuhrJlqgyNyc0YFa4s7J_jCLCspQ'
+bot_token = ''
 bot = telebot.TeleBot(bot_token)
 
 @bot.message_handler(commands=['start'])
