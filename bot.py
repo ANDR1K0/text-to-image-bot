@@ -3,8 +3,6 @@ import cv2
 from PIL import Image, ImageEnhance, ImageFilter
 from pytesseract import image_to_string, pytesseract
 
-#pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
-
 bot_token = '855417336:AAFcgumGuhrJlqgyNyc0YFa4s7J_jCLCspQ'
 bot = telebot.TeleBot(bot_token)
 keyboard1 = telebot.types.ReplyKeyboardMarkup(False, True)
@@ -14,10 +12,9 @@ keyboard2 = telebot.types.InlineKeyboardMarkup()
 for lang in [('Ukrainian', 'ukr'), ('English', 'eng'), ('Japanese','jpn'), ('Hindi','hin')]:
     keyboard2.add(telebot.types.InlineKeyboardButton(text=lang[0], callback_data=lang[1]))
 
-
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    bot.send_message(message.chat.id,'Hi! I can extract text from the photos you send me!', reply_markup=keyboard)
+    bot.send_message(message.chat.id,'Hi! I can extract text from the photos you send me!', reply_markup=keyboard1)
 
 @bot.message_handler(commands=['changelang'])
 def send_text(message):
@@ -31,7 +28,6 @@ def ans(c):
     LANGUAGE = c.data
     bot.send_message(cid, 'You have changed the language! Your lang is now: ' + c.data)
     
-
 @bot.message_handler(content_types=['text'])
 def send_text(message):
     if message.text.lower() == 'hello':
@@ -82,7 +78,7 @@ def take_text(image):
     if text == '':
         text = "Sorry, I can't recognize that. Try another photo"
     return text
-    
+
 @bot.message_handler(content_types=['photo'])
 def receive_photo(message):
     file_id = message.photo[-1].file_id
@@ -91,7 +87,7 @@ def receive_photo(message):
     with open("image.jpg", 'wb') as new_file:
         new_file.write(downloaded_file)
     image = 'image.jpg'
-    text =  take_text(image)
+    text = take_text(image)
     bot.send_message(message.chat.id, text)
 
 
