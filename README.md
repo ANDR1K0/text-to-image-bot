@@ -1,1 +1,1 @@
-# chat
+# text-to-image-bot
